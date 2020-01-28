@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package place_service;
+
+service PlaceService {
+    rpc getNearbyPlaces(PlaceRequest) returns (PlaceResponse) {}
+}
+
+message PlaceRequest {
+    Coordinates coordinates = 1;
+    repeated PlaceType types = 2;
+}
+
+message PlaceResponse {
+    repeated Place places = 1;
+    string message = 2;
+}
+
+message Place {
+    string name = 1;
+    string address = 2;
+    Coordinates coordinates = 3;
+    PlaceType type = 4;
+    Distance distance = 5;
+    Duration duration = 6;
+}
+
+message Coordinates {
+    double lat = 1;
+    double lng = 2;
+}
+
+enum PlaceType {
+    PLACE_TYPE_UNSPECIFIED = 0;
+    PLACE_TYPE_CLOTHING_STORE = 1;
+    PLACE_TYPE_BEAUTY_STORE = 2;
+}
+
+message Distance {
+    string text = 1;
+    int32 value = 2;
+}
+
+message Duration {
+    string text = 1;
+    int32 value = 2;
+}

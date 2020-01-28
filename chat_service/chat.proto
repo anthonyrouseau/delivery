@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package chat_service;
+
+service ChatService {
+    rpc joinChat(JoinChatRequest) returns (ChatResponse) {}
+    rpc sendMessage(SendMessageRequest) returns (SendMessageResponse) {}
+}
+
+message JoinChatRequest {
+    int64 chat_id = 1;
+}
+
+message ChatResponse {
+    ChatMessage message = 1;
+}
+
+message ChatMessage {
+    string text = 1;
+    string time = 2;
+    User sender = 3;
+    User receiver = 4;
+}
+
+message User {
+    string username = 1;
+    int64 id = 2;
+}
+
+message SendMessageRequest {
+    string text = 1;
+    int64 chat_id = 2;
+}

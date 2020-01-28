@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package auth_service;
+
+service AuthService {
+    rpc HashPassword (HashRequest) returns (HashReply) {}
+    rpc Authenticate (AuthenticationRequest) returns (AuthenticationReply) {}
+    rpc GetAuthToken (AuthTokenRequest) returns (AuthTokenReply) {}
+}
+
+message HashRequest {
+    string password = 1;
+}
+
+message HashReply {
+    string message = 1;
+    string password_hash = 2;
+}
+
+message AuthenticationRequest {
+    string token = 1;
+}
+
+message AuthenticationReply {
+    bool authenticated = 1;
+    TokenClaims claims = 2;
+}
+
+message AuthTokenRequest {
+    string password = 1;
+    string username = 2;
+}
+
+message AuthTokenReply {
+    string token = 1;
+    string message = 2;
+}
+
+message TokenClaims {
+    string username = 1;
+    int64 exp = 2;
+}
